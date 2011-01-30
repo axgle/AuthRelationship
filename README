@@ -1,1 +1,15 @@
 AuthRelationship v0.0.1 release!!
+
+<?php
+$config=array(
+'reader'=>array('read'),
+'author'=>array('create','reader', 'edit'=>'return $author_id==$user_id;'),
+'editor'=>array('author','edit','publish'),
+'master'=>array('editor','delete'),
+
+'create'=>array('createPost','createComment')
+);
+$ar=new AuthRelationship($config);
+echo (int)$ar->checkAccess('master', 'read', array('author_id'=>1, 'user_id'=>2));
+
+?>
